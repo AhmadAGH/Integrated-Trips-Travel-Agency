@@ -11,7 +11,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" >
-    @yield('style')
 </head>
 <body>
     <div id="app">
@@ -31,17 +30,6 @@
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/receipts') }}">سندات القبض</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/payments') }}">سندات الصرف</a>
-                            </li>
-                            @if (Auth::user()->role == 0)
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/payments') }}">احصائيات</a>
-                                </li>
-                            @endif
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -75,9 +63,12 @@
                 </div>
             </div>
         </nav>
-        @include('inc.msg')
         <main class="py-4">
-            
+            <div class="jumbotron text-center">
+                <h1 class="display-4"> </h1>
+                @section('jumptrone')
+                @show
+            </div>
             @yield('content')
         </main>
     </div>
