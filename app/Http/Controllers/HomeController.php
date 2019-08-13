@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Client;
+use App\PaymentRecipient;
+use App\Receipt;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = User::all();
+        $clients = Client::all();
+        $receipts = Receipt::all();
+        $paymentRecipients = PaymentRecipient::all();
+
+        $totalPayments = 0;
+        foreach ($paymentRecipients as $paymentRecipient)
+        {
+            $totalPayments+= $paymentRecipient->amount;
+        }
+        return view('home')->with( ['totalPayments'=>$totalPayments]);
     }
 }

@@ -39,7 +39,7 @@
                             </li>
                             @if (Auth::user()->role == 0)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/payments') }}">احصائيات</a>
+                                    <a class="nav-link" href="{{ url('/') }}">بيانات</a>
                                 </li>
                             @endif
                         <!-- Authentication Links -->

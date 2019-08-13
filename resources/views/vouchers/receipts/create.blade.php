@@ -44,7 +44,7 @@
                 </div>
                 <div class="input-group-postpend">
                     <span class="input-group-text">العملة</span>
-                    <input type="text" value="ريال سعودي" name="currency" class="form-control">
+                    <input type="text" readonly="true" value="ريال سعودي" name="currency" class="form-control">
                 </div>
             </div>
             

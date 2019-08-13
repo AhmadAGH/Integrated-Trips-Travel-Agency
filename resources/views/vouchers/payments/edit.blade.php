@@ -22,7 +22,7 @@
                             <th width="120px" scope="row"><input  value="{{date("Y-m-d")}}" type="date" name="payment_dates[0]" class="form-control text-right"></th>
                             <td width="150px"><input type="text" name="recipient_names[0]" class="form-control text-right"></td>
                             <td width="120px"><input type="number" step="0.1" name="amounts[0]" class="form-control text-right"></td>
-                            <td width="120px"><input readonly="true" value="ريال سعودي" type="text" name="currencies[0]" class="form-control text-right"></td>
+                            <td width="120px"><input value="ريال سعودي" type="text" name="currencies[0]" class="form-control text-right"></td>
                             <td width="150px"><input type="text" name="payment_types[0]" class="form-control text-right"></td>
                             <td width="250px"><input type="text" name="discriptions[0]" class="form-control text-right"></td>
                         </tr>
@@ -44,7 +44,7 @@
                     '<th scope="row"><input  value="{{date("Y-m-d")}}" type="date" name="payment_dates['+i+']" class="form-control text-right"></th>'+
                     '<td><input type="text" name="recipient_names['+i+']" class="form-control text-right"></td>'+
                     '<td><input type="number" step="0.1" name="amounts['+i+']" class="form-control text-right"></td>'+
-                    '<td><input readonly="true" value="ريال سعودي" type="text" name="currencies['+i+']" class="form-control text-right"></td>'+
+                    '<td><input value="ريال سعودي" type="text" name="currencies['+i+']" class="form-control text-right"></td>'+
                     '<td><input type="text" name="payment_types['+i+']" class="form-control text-right"></td>'+
                     '<td><input type="text" name="discriptions['+i+']" class="form-control text-right"></td>'+
                 '</tr>';

@@ -48,9 +48,9 @@
                                         <input type="image" src="{{asset("storage\img\x.png")}}"  width="30" alt="Submit" />
                                     </form>
                                 </div>
-                                <div class="col-sm-auto">
+                                {{-- <div class="col-sm-auto">
                                     <a href="receipts/edit"><img src="{{asset("storage\img\pencil.png")}}" width="30"></a>
-                                </div>
+                                </div> --}}
                             @endif
                             <div class="col-sm-auto">
                                 <a href="{{url('receipts',$receipt->id)}}"><img src="{{asset("storage\img\printer.png")}}" width="30"></a>

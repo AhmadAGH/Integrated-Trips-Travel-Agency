@@ -114,7 +114,8 @@ class PaymentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $paymentRecipientsToShow = PaymentRecipient::where('payment_id',$id)->get();
+        return view('vouchers/payments/show')->with(['paymentRecipients' =>$paymentRecipientsToShow]);
     }
 
     /**
@@ -125,7 +126,8 @@ class PaymentsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $paymentRecipientToEdit = PaymentRecipient::where('id',$id)->get();
+        return  view('vouchers/payments/edit')->with(['paymentRecipient' =>$paymentRecipientToEdit]);
     }
 
     /**
@@ -148,6 +150,8 @@ class PaymentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $paymentToDelete = Payment::find($id);
+        $paymentToDelete->delete();
+        return redirect('/payments')->with('success','تم حذف سند الصرف بنجاح');
     }
 }

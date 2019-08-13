@@ -13,7 +13,7 @@
             </div>
         </div>
     </div>
-    {{-- @if(count($payment_recipients)>0) --}}
+    @if(count($payment_recipients)>0)
         @foreach($payment_recipients as $payment_recipient)
             <div class="card text-center">
                     <div class="card-header">
@@ -31,7 +31,7 @@
                             <br>
                             {{$payment_recipient->payment->user->name}}
                         </p>
-                        {{-- <div class="row justify-content-md-center">
+                        <div class="row justify-content-md-center">
                             @if (Auth::user()->role == 0)
                                 <div class="col-sm-auto">
                                     <form action="{{url('payments',$payment_recipient->payment->id)}}" method="POST">
@@ -40,21 +40,21 @@
                                         <input type="image" src="{{asset("storage\img\x.png")}}"  width="30" alt="Submit" />
                                     </form>
                                 </div>
-                                <div class="col-sm-auto">
-                                    <a href="receipts/edit"><img src="{{asset("storage\img\pencil.png")}}" width="30"></a>
-                                </div>
+                                {{-- <div class="col-sm-auto">
+                                    <a href="{{url('payments/edit',$payment_recipient->id)}}"><img src="{{asset("storage\img\pencil.png")}}" width="30"></a>
+                                </div> --}}
                             @endif
                             <div class="col-sm-auto">
-                                <a href="{{url('receipts',$receipt->id)}}"><img src="{{asset("storage\img\printer.png")}}" width="30"></a>
+                                <a href="{{url('payments',$payment_recipient->payment->id)}}"><img src="{{asset("storage\img\printer.png")}}" width="30"></a>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 <div class="card-header text-center">
             </div>
 
         @endforeach
-    {{-- @else
+    @else
         <h3 class="text-center">لا توجد سندات صرف</h3>
-    @endif --}}
+    @endif
 @endSection
