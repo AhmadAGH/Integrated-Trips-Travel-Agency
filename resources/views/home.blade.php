@@ -9,7 +9,9 @@
                 <div class="card-body">
                    <div class="row">
                        <div class="col">
-                           اجمالي المبالغ المصروفة: {{$totalPayments}}
+                           اجمالي المبالغ المصروفة: {{$totalPaymentsAmount." -- "}}
+                           اجمالي المبالغ المقبوضة: {{$totalReceiptsAmount." -- "}}
+                           اجمالي المبالغ الغير مقبوضة: {{$totlaReceiptsReminder}}
                        </div>
                    </div>
                 </div>

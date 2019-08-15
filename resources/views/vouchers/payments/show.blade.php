@@ -76,10 +76,18 @@
                             <td style="border: inset;">{{$paymentRecipient->currency}}</td>
                         </tr>
                     @endforeach
-                
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <th style="border: inset;">الاجمالي</th>
+                        <td style="border: inset;">{{$totalPayments}}</td>
+                        <td ></td>
+                    </tr>
                 </tbody>
             </table>
-            <br><br>
+            <br><br><br>
             <div style=" padding-top: 100px;">
                 <h4 align="right">الموظف: {{Auth::user()->name}}</h4>
                 <h4 align="right">التوقيع: ..........................</h4>

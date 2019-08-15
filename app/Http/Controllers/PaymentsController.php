@@ -23,20 +23,22 @@ class PaymentsController extends Controller
     {
         
         $user = Auth::user();
-        $all_payment_recipients = PaymentRecipient::all();
-
-        if($user->role != 0)
+        $all_payment_recipients = PaymentRecipient::orderBy('id', 'DESC')->get();
+        $payment_recipients = array();
+        if($user->role == 1)
         {
-            for ($i=0;$i<count($all_payment_recipients);$i++) {
+            for ($i=0;$i<count($all_payment_recipients);$i++) 
+            {
                 if($all_payment_recipients[$i]->payment->user_id == $user->id)
                 {
                     $payment_recipients[$i] = $all_payment_recipients[$i];
                 }
             }
-        }else {
+        }else{
             $payment_recipients = $all_payment_recipients;
         }
         
+
         $totalAmount = 0;
         foreach ($payment_recipients as $payment_recipient) 
         {
@@ -44,7 +46,7 @@ class PaymentsController extends Controller
         }
         return view('vouchers/payments/index')->with(
         ['payment_recipients'=>$payment_recipients,'totalAmount'=>$totalAmount]);
-    ;
+
     }
 
     /**
@@ -66,6 +68,7 @@ class PaymentsController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
         $paymentDates = $request->payment_dates;
         $amounts = $request->amounts;
         $currencies = $request->currencies;
@@ -99,7 +102,7 @@ class PaymentsController extends Controller
                 'currency'=>$currencies[$i],
                 'recipient_name'=>$recipient_names[$i],
                 'discription'=>$discriptions[$i],
-                'paymentType'=>$payment_types[$i],
+                'payment_type'=>$payment_types[$i]
             ]);
             $paymentRecipient->save();
         }
@@ -115,7 +118,13 @@ class PaymentsController extends Controller
     public function show($id)
     {
         $paymentRecipientsToShow = PaymentRecipient::where('payment_id',$id)->get();
-        return view('vouchers/payments/show')->with(['paymentRecipients' =>$paymentRecipientsToShow]);
+        $totalPaymentsToShow  = 0;
+        foreach ($paymentRecipientsToShow as $paymentRecipientToShow) 
+        {
+            $totalPaymentsToShow+= $paymentRecipientToShow->amount;
+        }
+        return view('vouchers/payments/show')->with(['paymentRecipients' =>$paymentRecipientsToShow
+        , 'totalPayments'=>$totalPaymentsToShow]);
     }
 
     /**

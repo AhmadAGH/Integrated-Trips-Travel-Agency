@@ -38,11 +38,13 @@
                             {{$receipt->discription}}
                             <br>
                             {{$receipt->user->name}}
+                            <br>
+                            {{"طريقة الدفع: ".$receipt->payment_type}}
                         </p>
                         <div class="row justify-content-md-center">
                             @if (Auth::user()->role == 0)
                                 <div class="col-sm-auto">
-                                    <form action="{{url('receipts',$receipt->id)}}" method="POST">
+                                    <form action="{{url('receipts',$receipt->id)}}"  onsubmit="return deleteConf()" method="POST">
                                         {{csrf_field()}}
                                         {{method_field("DELETE")}}
                                         <input type="image" src="{{asset("storage\img\x.png")}}"  width="30" alt="Submit" />
@@ -59,10 +61,18 @@
                     </div>
                 </div>
                 <div class="card-header text-center">
+                    {{$receipt->receipt_date}}
+                </div>
             </div>
 
         @endforeach
     @else
         <h3 class="text-center">لا توجد سندات قبض</h3>
     @endif
+    <script type="text/javascript">
+        function deleteConf()
+        {
+           return confirm("هل تريد حذف هذا السند؟")
+        }
+    </script>
 @endSection

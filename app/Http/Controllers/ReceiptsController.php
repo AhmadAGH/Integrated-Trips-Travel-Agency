@@ -23,9 +23,10 @@ class ReceiptsController extends Controller
         $user = Auth::user();
         if($user->role == 0)
         {
-            $receipts = Receipt::all();
+            $receipts = Receipt::orderBy('id', 'DESC')->get();
         }else {
-            $receipts = Receipt::where('user_id',$user->id)->get();
+            
+            $receipts = Receipt::orderBy('id', 'DESC')->where('user_id',$user->id)->get();
         }
         
         $totalAmount = 0;

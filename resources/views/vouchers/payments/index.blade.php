@@ -30,11 +30,13 @@
                             {{$payment_recipient->discription}}
                             <br>
                             {{$payment_recipient->payment->user->name}}
+                            <br>
+                            {{"طريقة الدفع: ".$payment_recipient->payment_type}}
                         </p>
                         <div class="row justify-content-md-center">
                             @if (Auth::user()->role == 0)
                                 <div class="col-sm-auto">
-                                    <form action="{{url('payments',$payment_recipient->payment->id)}}" method="POST">
+                                    <form action="{{url('payments',$payment_recipient->payment->id)}}" onsubmit="return deleteConf()" method="POST">
                                         {{csrf_field()}}
                                         {{method_field("DELETE")}}
                                         <input type="image" src="{{asset("storage\img\x.png")}}"  width="30" alt="Submit" />
@@ -51,10 +53,18 @@
                     </div>
                 </div>
                 <div class="card-header text-center">
+                    {{$payment_recipient->payment_date}}
+                </div>
             </div>
 
         @endforeach
     @else
         <h3 class="text-center">لا توجد سندات صرف</h3>
     @endif
+    <script type="text/javascript">
+        function deleteConf()
+        {
+           return confirm("هل تريد حذف هذا السند؟")
+        }
+    </script>
 @endSection

@@ -7,6 +7,7 @@ use App\User;
 use App\Client;
 use App\PaymentRecipient;
 use App\Receipt;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -26,16 +27,32 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role == 1)
+        {
+            
+            return redirect()->action('ReceiptsController@index');
+        }
+
         $users = User::all();
         $clients = Client::all();
         $receipts = Receipt::all();
         $paymentRecipients = PaymentRecipient::all();
 
-        $totalPayments = 0;
+        $totalPaymentsAmount = 0;
+        $totalReceiptsAmount = 0;
+        $totalReceiptsReminder = 0;
         foreach ($paymentRecipients as $paymentRecipient)
         {
-            $totalPayments+= $paymentRecipient->amount;
+            $totalPaymentsAmount+= $paymentRecipient->amount;
         }
-        return view('home')->with( ['totalPayments'=>$totalPayments]);
+        foreach ($receipts as $receipt)
+        {
+            $totalReceiptsAmount+= $receipt->amount;
+            $totalReceiptsReminder+= $receipt->remainder;
+        }
+        return view('home')->with( 
+            ['totalPaymentsAmount'=>$totalPaymentsAmount
+            ,'totalReceiptsAmount'=>$totalReceiptsAmount
+            ,'totlaReceiptsReminder'=> $totalReceiptsReminder]);
     }
 }
