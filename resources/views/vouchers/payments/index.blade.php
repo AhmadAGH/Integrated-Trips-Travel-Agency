@@ -31,7 +31,7 @@
                             <br>
                             {{$payment_recipient->payment->user->name}}
                             <br>
-                            {{"طريقة الدفع: ".$payment_recipient->payment_type}}
+                            {{"طريقة الدفع: ".$payment_recipient->payment_type->name}}
                         </p>
                         <div class="row justify-content-md-center">
                             @if (Auth::user()->role == 0)

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Client;
 use App\Receipt;
+use App\PaymentType;
 use Auth;
 class ReceiptsController extends Controller
 {
@@ -50,7 +51,8 @@ class ReceiptsController extends Controller
     {
         $users = User::all();
         $clients = Client::all();
-        return view('vouchers/receipts/create')->with(['users' => $users ,'clients' =>$clients]);
+        $payment_types = PaymentType::all();
+        return view('vouchers/receipts/create')->with(['users' => $users ,'clients' =>$clients,'payment_types'=> $payment_types]);
     }
 
     /**
@@ -60,16 +62,17 @@ class ReceiptsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $validattion = $request->validate([
             'amount' =>'required',
             'remainder' =>'required',
             'client_id' =>'required',
             'currency' =>'required',
             'discription' =>'required',
-            'payment_type' =>'required',
+            'payment_type_id' =>'required',
             'receipt_date' =>'required',
         ]);
+        
         if($validattion)
         {
             $receipt = new Receipt(['amount'=>$request->amount,
@@ -77,10 +80,12 @@ class ReceiptsController extends Controller
             'client_id' =>$request->client_id,
             'currency' => $request->currency,
             'discription' =>$request->discription,
-            'payment_type' =>$request->payment_type,
+            'payment_type_id' =>$request->payment_type_id,
             'receipt_date' =>$request->receipt_date,
             'user_id' =>Auth::user()->id]);
             $receipt->save();
+            $paymentTypeAvlAmount = $receipt->payment_type->avl_amount;
+            PaymentType::where('id',$receipt->payment_type->id)->update(['avl_amount'=>$paymentTypeAvlAmount + $receipt->amount]);
             return redirect('/receipts')->with('success','تم انشاء سند القبض بنجاح');
         }            
     }

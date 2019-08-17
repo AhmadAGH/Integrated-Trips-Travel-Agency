@@ -7,6 +7,7 @@ use App\User;
 use App\Client;
 use App\PaymentRecipient;
 use App\Payment;
+use App\PaymentType;
 use Auth;
 class PaymentsController extends Controller
 {
@@ -56,7 +57,8 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        return view('vouchers/payments/create');
+        $payment_types = PaymentType::all();
+        return view('vouchers/payments/create')->with(['payment_types'=> $payment_types]);
     }
 
     /**
@@ -72,7 +74,7 @@ class PaymentsController extends Controller
         $paymentDates = $request->payment_dates;
         $amounts = $request->amounts;
         $currencies = $request->currencies;
-        $payment_types = $request->payment_types;
+        $payment_type_ids = $request->payment_type_ids;
         $discriptions = $request->discriptions;
         $recipient_names = $request->recipient_names;
         
@@ -83,7 +85,7 @@ class PaymentsController extends Controller
             'payment_dates.*' =>'required',
             'currencies.*' =>'required',
             'discription.*' =>'required',
-            'payment_types.*' =>'required',
+            'payment_type_ids.*' =>'required',
             'discriptions.*' =>'required',
         ]);
         
@@ -102,9 +104,11 @@ class PaymentsController extends Controller
                 'currency'=>$currencies[$i],
                 'recipient_name'=>$recipient_names[$i],
                 'discription'=>$discriptions[$i],
-                'payment_type'=>$payment_types[$i]
+                'payment_type_id'=>$payment_type_ids[$i]
             ]);
             $paymentRecipient->save();
+            $paymentTypeAvlAmount = $paymentRecipient->payment_type->avl_amount;
+            PaymentType::where('id',$paymentRecipient->payment_type->id)->update(['avl_amount'=>$paymentTypeAvlAmount - $paymentRecipient->amount]);
         }
         return redirect('/payments')->with('success','تم انشاء سند الصرف بنجاح');
     }

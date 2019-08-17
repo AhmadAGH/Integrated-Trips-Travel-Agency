@@ -23,7 +23,17 @@
                             <td width="150px"><input type="text" name="recipient_names[0]" class="form-control text-right"></td>
                             <td width="120px"><input type="number" step="0.1" name="amounts[0]" class="form-control text-right"></td>
                             <td width="120px"><input readonly="true" value="ريال سعودي" type="text" name="currencies[0]" class="form-control text-right"></td>
-                            <td width="150px"><input type="text" name="payment_types[0]" class="form-control text-right"></td>
+                            <td width="150px">
+                                <select name="payment_type_ids[0]" class="form-control custom-select">
+                                    @if(count($payment_types)>0)
+                                        @foreach ($payment_types as $payment_type)
+                                            <option value="{{$payment_type->id}}">{{$payment_type->name}}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="-1">لا توجد طرق دفع</option>
+                                    @endIf
+                                </select>
+                            </td>
                             <td width="250px"><input type="text" name="discriptions[0]" class="form-control text-right"></td>
                         </tr>
                 </tbody>
@@ -45,7 +55,17 @@
                     '<td><input type="text" name="recipient_names['+i+']" class="form-control text-right"></td>'+
                     '<td><input type="number" step="0.1" name="amounts['+i+']" class="form-control text-right"></td>'+
                     '<td><input readonly="true" value="ريال سعودي" type="text" name="currencies['+i+']" class="form-control text-right"></td>'+
-                    '<td><input type="text" name="payment_types['+i+']" class="form-control text-right"></td>'+
+                    '<td width="150px">'+
+                                '<select name="payment_type_ids['+i+']" class="form-control custom-select">'+
+                                    '@if(count($payment_types)>0)'+
+                                        '@foreach ($payment_types as $payment_type)'+
+                                            '<option value="{{$payment_type->id}}">{{$payment_type->name}}</option>'+
+                                        '@endforeach'+
+                                    '@else'+
+                                        '<option value="-1">لا توجد طرق دفع</option>'+
+                                    '@endIf'+
+                               '</select>'+
+                            '</td>'+
                     '<td><input type="text" name="discriptions['+i+']" class="form-control text-right"></td>'+
                 '</tr>';
             $('tbody').append(tr)

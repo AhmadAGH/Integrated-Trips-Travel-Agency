@@ -53,10 +53,20 @@
                         <span class="input-group-text">البيان</span>
                         <textarea name="discription"  rows="1" class="form-control"></textarea>
                     </div>
+
                     <div class="input-group-postpend">
-                        <span class="input-group-text">طريقة الدفع</span>
-                        <input type="text" name="payment_type" class="form-control">
-                    </div>
+                        <span class="input-group-text">اختر طريقة الدفع</span>
+                        <select name="payment_type_id" class="custom-select">
+                            @if(count($payment_types)>0)
+                                @foreach ($payment_types as $payment_type)
+                                    <option value="{{$payment_type->id}}">{{$payment_type->name}}</option>
+                                @endforeach
+                            @else
+                                <option value="-1">خطأ, لا توجد طرق دفع</option>
+                            @endIf
+                        </select>
+                    </div>  
+
                 </div>
             
             <div class="input-group mb-4">

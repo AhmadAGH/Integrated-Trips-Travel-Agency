@@ -7,7 +7,7 @@ use App\Reciept;
 class Client extends Model
 {
     protected $fillable = ['name', 'phone_number'];
-    public function receipts()
+    public function receipt()
     {
         return $this->hasMany('App\Receipt');
     }
