@@ -36,7 +36,7 @@
                         <div class="row justify-content-md-center">
                             @if (Auth::user()->role == 0)
                                 <div class="col-sm-auto">
-                                    <form action="{{url('payments',$payment_recipient->payment->id)}}" onsubmit="return deleteConf()" method="POST">
+                                    <form action="{{url('payments',$payment_recipient->id)}}" onsubmit="return deleteConf()" method="POST">
                                         {{csrf_field()}}
                                         {{method_field("DELETE")}}
                                         <input type="image" src="{{asset("storage\img\x.png")}}"  width="30" alt="Submit" />

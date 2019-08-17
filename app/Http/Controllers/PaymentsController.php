@@ -163,8 +163,10 @@ class PaymentsController extends Controller
      */
     public function destroy($id)
     {
-        $paymentToDelete = Payment::find($id);
-        $paymentToDelete->delete();
+        $paymentRecipientToDelete = PaymentRecipient::find($id);
+        $paymentRecipientToDelete->delete();
+        $paymentTypeAvlAmount = $paymentRecipientToDelete->payment_type->avl_amount;
+        PaymentType::where('id',$paymentRecipientToDelete->payment_type->id)->update(['avl_amount'=>$paymentTypeAvlAmount - $paymentRecipientToDelete->amount]);
         return redirect('/payments')->with('success','تم حذف سند الصرف بنجاح');
     }
 }

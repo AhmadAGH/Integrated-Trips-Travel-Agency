@@ -135,6 +135,8 @@ class ReceiptsController extends Controller
     {
         $receiptToDelete = Receipt::find($id);
         $receiptToDelete->delete();
+        $paymentTypeAvlAmount = $receiptToDelete->payment_type->avl_amount;
+        PaymentType::where('id',$receiptToDelete->payment_type->id)->update(['avl_amount'=>$paymentTypeAvlAmount - $receiptToDelete->amount]);
         return redirect('/receipts')->with('success','تم حذف سند القبض بنجاح');
     }
 }
