@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Auth;
 class LoginController extends Controller
 {
     /*
@@ -35,5 +36,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request,$user)
+    {
+        if($user->role == 2) {
+            Auth::logout();
+            return redirect('/login')->with('error',"عذراً, يجب تفعيل الحساب بواسطة  الادارة");
+        }else {
+            Auth::login($user);
+            return redirect('/')->with('success',"أهلاً بك يا ".$user->name);
+        }
     }
 }

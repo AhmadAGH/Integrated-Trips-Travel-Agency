@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\PaymentType;
-class PaymentTypesController extends Controller
+use App\User;
+class usersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,6 +15,7 @@ class PaymentTypesController extends Controller
     {
         //
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -33,18 +34,7 @@ class PaymentTypesController extends Controller
      */
     public function store(Request $request)
     {
-        $validattion = $request->validate([
-            'name' =>'required',
-            'avl_amount' =>'required',
-        ]);
-        
-        if($validattion)
-        {
-            $paymentType = new PaymentType
-            (['name'=>$request->name,'avl_amount' =>$request->avl_amount,]);
-            $paymentType->save();
-            return redirect('/admin')->with('success','تم اضافة الحساب بنجاح');
-        }
+        //
     }
 
     /**
@@ -78,7 +68,10 @@ class PaymentTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $userToUpdate = User::find($id);
+        $userToUpdate->role = $request->role;
+        $userToUpdate->save();
+        return redirect('/admin')->with('success','تم تعديل وظيفة '.$userToUpdate->name.' بنجاح');
     }
 
     /**
@@ -89,8 +82,8 @@ class PaymentTypesController extends Controller
      */
     public function destroy($id)
     {
-        $paymenTypeToDelete = PaymentType::find($id);
-        $paymenTypeToDelete->delete();
-        return redirect('/admin')->with('success','تم حذف الحساب بنجاح');
+        $userToDelete = User::find($id);
+        $userToDelete->delete();
+        return redirect('/admin')->with('success','تم حذف المستخدم بنجاح');
     }
 }

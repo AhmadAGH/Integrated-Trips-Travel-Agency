@@ -7,6 +7,7 @@ use App\User;
 use App\Client;
 use App\PaymentRecipient;
 use App\Receipt;
+use App\PaymentType;
 use Auth;
 class HomeController extends Controller
 {
@@ -37,6 +38,7 @@ class HomeController extends Controller
         $clients = Client::all();
         $receipts = Receipt::all();
         $paymentRecipients = PaymentRecipient::all();
+        $paymentTypes = PaymentType::all();
 
         $totalPaymentsAmount = 0;
         $totalReceiptsAmount = 0;
@@ -53,6 +55,7 @@ class HomeController extends Controller
         return view('home')->with( 
             ['totalPaymentsAmount'=>$totalPaymentsAmount
             ,'totalReceiptsAmount'=>$totalReceiptsAmount
-            ,'totlaReceiptsReminder'=> $totalReceiptsReminder]);
+            ,'totlaReceiptsReminder'=> $totalReceiptsReminder
+            ,'paymentTypes'=> $paymentTypes]);
     }
 }

@@ -27,15 +27,18 @@
             </table>
         </div>
         <div class="row border border-dark" >
-            <div class="column"> 
+            <div class="col text-right"> 
                 <img style="width: 180px; padding: 10px; padding-right:50px;" src="{{asset("storage\img\Itrips_Logo.png")}}">
+            </div>
+            <div class="col text-left"> 
+                <img style="width: 250px; padding: 10px; padding-right:50px; padding-top:20px;" src="{{asset("storage\img\Edutrip_Logo.png")}}">
             </div>
         </div>
         <div style=" padding-top: 30px; padding-bottom: 30px;">
             <table cellspacing="0" style="float: right; text-align: right;">
                 <thead style="background-color: #eeeeee; border: inset;">
                     <tr>
-                        <th style="border: inset;" width="100px">رقم السند</th>
+                        <th style="border: inset;" width="100px">رقم سند الصرف</th>
                     </tr>
                 </thead>
                 <tbody >
@@ -71,7 +74,7 @@
                             <td style="border: inset;">{{$paymentRecipient->payment_date}}</td>
                             <td style="border: inset;">{{$paymentRecipient->recipient_name}}</td>
                             <td style="border: inset;">{{$paymentRecipient->discription}}</td>
-                            <td style="border: inset;">{{$paymentRecipient->paymentType}}</td>
+                            <td style="border: inset;">{{$paymentRecipient->payment_type->name}}</td>
                             <td style="border: inset;">{{$paymentRecipient->amount}}</td>
                             <td style="border: inset;">{{$paymentRecipient->currency}}</td>
                         </tr>

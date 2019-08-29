@@ -27,8 +27,11 @@
             </table>
         </div>
         <div class="row border border-dark" >
-            <div class="column"> 
+            <div class="col text-right"> 
                 <img style="width: 180px; padding: 10px; padding-right:50px;" src="{{asset("storage\img\Itrips_Logo.png")}}">
+            </div>
+            <div class="col text-left"> 
+                    <img style="width: 250px; padding: 10px; padding-right:50px; padding-top:20px;" src="{{asset("storage\img\Edutrip_Logo.png")}}">
             </div>
         </div>
         <div style=" padding-top: 30px;">
@@ -37,7 +40,7 @@
                     <tr>
                         <th style="border: inset;" width="220px">العميل</th>
                         <th style="border: inset;" width="260px">رقم الجوال</th>
-                        <th style="border: inset;" width="260px">رقم السند</th>
+                        <th style="border: inset;" width="260px">رقم السند القبض</th>
                     </tr>
                 </thead>
                 <tbody >
@@ -69,7 +72,7 @@
                     <tr>
                         <td style="border: inset;" height="45px">{{$receipt->receipt_date}}</td>
                         <td style="border: inset;">{{$receipt->discription}}</td>
-                        <td style="border: inset;">{{$receipt->payment_type}}</td>
+                        <td style="border: inset;">{{$receipt->payment_type->name}}</td>
                         <td style="border: inset;">{{$receipt->amount}}</td>
                         <td style="border: inset;">{{$receipt->remainder}}</td>
                         <td style="border: inset;">{{$receipt->currency}}</td>

@@ -63,6 +63,7 @@
                 </div>
             </div>
         </nav>
+        @include('inc.msg')
         <main class="py-4">
             <div class="jumbotron text-center">
                 <h1 class="display-4"> </h1>
