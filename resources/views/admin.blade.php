@@ -119,7 +119,7 @@
                             @endif
                             @if ($user->role == 2)
                                 <div class="col">
-                                    <form action="{{url('users',$user->id)}}"  onsubmit="return deleteConf()" method="POST">
+                                    <form action="{{url('users',$user->id)}}"  onsubmit="return roleChangeConf()" method="POST">
                                         {{csrf_field()}}
                                         {{method_field("PATCH")}}
                                         <input  type="hidden" name="role" value={{$user->role - 1}}>
@@ -127,7 +127,7 @@
                                     </form>
                                 </div>
                                 <div class="col">
-                                    <form action="{{url('users',$user->id)}}"  onsubmit="return deleteConf()" method="POST">
+                                    <form action="{{url('users',$user->id)}}"  onsubmit="return roleChangeConf()" method="POST">
                                         {{csrf_field()}}
                                         {{method_field("PATCH")}}
                                         <input  type="hidden" name="role" value={{$user->role + 1}}>
@@ -160,6 +160,12 @@
     function deleteConf()
     {
        return confirm("هل تريد حذف هذا الحساب؟")
+    }
+</script>
+<script type="text/javascript">
+    function roleChangeConf()
+    {
+       return confirm("هل تريد تغيير وظيفة هذا الحساب؟")
     }
 </script>
 @endsection
